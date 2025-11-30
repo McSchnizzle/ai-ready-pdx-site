@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 html {
   scroll-behavior: smooth;
@@ -9,4 +7,12 @@ html {
 body {
   background-color: #F4F1EA;
   color: #1E2022;
+}
+
+@theme {
+  --color-primary: #0B3D2E;
+  --color-secondary: #1F3A5F;
+  --color-accent: #2BBBAD;
+  --color-neutral-warm: #F4F1EA;
+  --color-neutral-dark: #1E2022;
 }
