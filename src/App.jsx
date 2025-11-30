@@ -401,25 +401,25 @@ function App() {
             Whether you're curious, cautious, or already experimenting, we'd be happy to talk.
           </p>
           
-          <form className="space-y-4 bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10" onSubmit={(e) => { e.preventDefault(); alert('Thanks! We will be in touch shortly.'); }}>
+          <form className="space-y-4 bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10" action="https://formspree.io/f/myzrkrbo" method="POST">
             <div>
               <label className="block text-sm font-medium mb-1">Name</label>
-              <input type="text" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Jane Doe" required />
+              <input type="text" name="name" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Jane Doe" required />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Email</label>
-              <input type="email" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="jane@company.com" required />
+              <input type="email" name="email" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="jane@company.com" required />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Company</label>
-              <input type="text" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Acme Corp" />
+              <input type="text" name="company" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Acme Corp" />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">How can we help?</label>
-              <textarea className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent h-32" placeholder="We want to automate our scheduling..."></textarea>
+              <textarea name="message" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent h-32" placeholder="We want to automate our scheduling..."></textarea>
             </div>
             <div className="flex items-center gap-3 py-2">
-              <input type="checkbox" id="freeSession" className="w-5 h-5 text-accent rounded" defaultChecked />
+              <input type="checkbox" id="freeSession" name="interested_in_free_session" className="w-5 h-5 text-accent rounded" defaultChecked />
               <label htmlFor="freeSession" className="text-sm">I'm interested in the Free December Session</label>
             </div>
             <button type="submit" className="w-full bg-accent hover:bg-teal-500 text-white font-bold py-4 rounded-lg transition-colors text-lg">
