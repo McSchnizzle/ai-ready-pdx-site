@@ -7,6 +7,10 @@ import {
 
 import logo from './assets/logo.png';
 import heroBg from './assets/hero-bg.png';
+import iconStrategy from './assets/icon-strategy.png';
+import iconAutomation from './assets/icon-automation.png';
+import iconTraining from './assets/icon-training.png';
+import iconSecurity from './assets/icon-security.png';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -138,22 +142,22 @@ function App() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                icon: <Shield className="w-8 h-8 text-accent" />,
+                icon: <img src={iconSecurity} alt="Security" className="w-12 h-12 object-contain" />,
                 title: "Decades of Tech Leadership",
                 desc: "Part of Vital Enterprises. Our family includes VTM (30+ years leading global standards) and Novus Labs (17+ years engineering consumer electronics)."
               },
               {
-                icon: <Factory className="w-8 h-8 text-accent" />,
+                icon: <img src={iconStrategy} alt="Business" className="w-12 h-12 object-contain" />,
                 title: "We Know Tech & Business",
                 desc: "We translate AI into process improvements, not buzzwords. We understand how revenue flows and where work gets stuck."
               },
               {
-                icon: <Cpu className="w-8 h-8 text-accent" />,
+                icon: <img src={iconAutomation} alt="Automation" className="w-12 h-12 object-contain" />,
                 title: "Already Doing It",
                 desc: "We're already rolling out AI solutions across the region for businesses and nonprofits. We use these tools daily."
               },
               {
-                icon: <MessageSquare className="w-8 h-8 text-accent" />,
+                icon: <img src={iconTraining} alt="Training" className="w-12 h-12 object-contain" />,
                 title: "Plain Language",
                 desc: "No hype. No confusing jargon. Just clear explanations and practical outcomes that help your team feel confident."
               }
@@ -202,32 +206,32 @@ function App() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Map />,
+                icon: <img src={iconStrategy} alt="Strategy" className="w-10 h-10 object-contain" />,
                 title: "Strategy & Roadmaps",
                 desc: "6-12 month practical plans. We identify high-ROI use cases and check in regularly."
               },
               {
-                icon: <Terminal />,
+                icon: <img src={iconAutomation} alt="Automation" className="w-10 h-10 object-contain" />,
                 title: "Automation & Agents",
                 desc: "Internal tools built with agentic coding. Smarter scheduling, intake forms, and reporting."
               },
               {
-                icon: <MessageSquare />,
+                icon: <MessageSquare className="w-10 h-10 text-primary" />,
                 title: "Marketing & Outreach",
                 desc: "Website refresh, AEO/SEO visibility, content calendars, and ethical cold outreach setup."
               },
               {
-                icon: <Users />,
+                icon: <img src={iconTraining} alt="Training" className="w-10 h-10 object-contain" />,
                 title: "Training & Enablement",
                 desc: "Executive briefings, staff AI 101, and developer bootcamps to build confidence."
               },
               {
-                icon: <Database />,
+                icon: <img src={iconSecurity} alt="Security" className="w-10 h-10 object-contain" />,
                 title: "Data & Private AI",
                 desc: "Secure 'ask your documents' assistants. On-prem or secure cloud options."
               },
               {
-                icon: <Phone />,
+                icon: <Phone className="w-10 h-10 text-primary" />,
                 title: "Voice Agents",
                 desc: "AI receptionists to triage calls and take messages when you're in the field."
               }
