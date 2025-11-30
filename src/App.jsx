@@ -5,6 +5,9 @@ import {
   Map, Terminal, MessageSquare, Database, Phone 
 } from 'lucide-react';
 
+import logo from './assets/logo.png';
+import heroBg from './assets/hero-bg.png';
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -23,10 +26,13 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => scrollToSection('hero')}>
-              {/* Logo Placeholder */}
+              {/* Logo */}
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center text-white font-bold">AI</div>
-                <span className="font-bold text-xl tracking-tight text-primary">AI Ready PDX</span>
+                <img src={logo} alt="AI Ready PDX Logo" className="h-10 w-auto" onError={(e) => {e.target.onerror = null; e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'}} />
+                <div className="hidden items-center gap-2" style={{display: 'none'}}>
+                   <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center text-white font-bold">AI</div>
+                   <span className="font-bold text-xl tracking-tight text-primary">AI Ready PDX</span>
+                </div>
               </div>
             </div>
             
@@ -78,6 +84,11 @@ function App() {
 
       {/* Hero Section */}
       <section id="hero" className="relative pt-20 pb-32 bg-neutral-warm overflow-hidden">
+        {/* Background Image Layer */}
+        <div className="absolute inset-0 z-0 opacity-10">
+            <img src={heroBg} alt="Background" className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+        </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-primary text-sm font-semibold mb-6">
