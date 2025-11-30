@@ -14,12 +14,40 @@ import iconSecurity from './assets/icon-security.png';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [formState, setFormState] = useState({ submitting: false, succeeded: false, error: null });
 
   const scrollToSection = (id) => {
     setIsMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormState({ submitting: true, succeeded: false, error: null });
+    
+    const formData = new FormData(e.target);
+    
+    try {
+      const response = await fetch("https://formspree.io/f/myzrkrbo", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        setFormState({ submitting: false, succeeded: true, error: null });
+        e.target.reset();
+      } else {
+        const data = await response.json();
+        setFormState({ submitting: false, succeeded: false, error: data.error || "Something went wrong. Please try again." });
+      }
+    } catch (error) {
+        setFormState({ submitting: false, succeeded: false, error: "Network error. Please try again." });
     }
   };
 
@@ -401,31 +429,60 @@ function App() {
             Whether you're curious, cautious, or already experimenting, we'd be happy to talk.
           </p>
           
-          <form className="space-y-4 bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10" action="https://formspree.io/f/myzrkrbo" method="POST">
-            <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
-              <input type="text" name="name" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Jane Doe" required />
+          {formState.succeeded ? (
+            <div className="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-6">
+                <CheckCircle size={32} />
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
+              <p className="text-green-100 mb-6">
+                Thanks for reaching out. We'll review your message and get back to you within two business days.
+              </p>
+              <button 
+                onClick={() => setFormState({ ...formState, succeeded: false })}
+                className="text-accent hover:text-white font-medium underline underline-offset-4"
+              >
+                Send another message
+              </button>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Email</label>
-              <input type="email" name="email" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="jane@company.com" required />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Company</label>
-              <input type="text" name="company" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Acme Corp" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">How can we help?</label>
-              <textarea name="message" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent h-32" placeholder="We want to automate our scheduling..."></textarea>
-            </div>
-            <div className="flex items-center gap-3 py-2">
-              <input type="checkbox" id="freeSession" name="interested_in_free_session" className="w-5 h-5 text-accent rounded" defaultChecked />
-              <label htmlFor="freeSession" className="text-sm">I'm interested in the Free December Session</label>
-            </div>
-            <button type="submit" className="w-full bg-accent hover:bg-teal-500 text-white font-bold py-4 rounded-lg transition-colors text-lg">
-              Send Message
-            </button>
-          </form>
+          ) : (
+            <form className="space-y-4 bg-white/5 p-8 rounded-2xl backdrop-blur-sm border border-white/10" onSubmit={handleSubmit}>
+              <div>
+                <label className="block text-sm font-medium mb-1">Name</label>
+                <input type="text" name="name" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Jane Doe" required />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Email</label>
+                <input type="email" name="email" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="jane@company.com" required />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">Company</label>
+                <input type="text" name="company" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent" placeholder="Acme Corp" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1">How can we help?</label>
+                <textarea name="message" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:ring-2 focus:ring-accent h-32" placeholder="We want to automate our scheduling..."></textarea>
+              </div>
+              <div className="flex items-center gap-3 py-2">
+                <input type="checkbox" id="freeSession" name="interested_in_free_session" className="w-5 h-5 text-accent rounded" defaultChecked />
+                <label htmlFor="freeSession" className="text-sm">I'm interested in the Free December Session</label>
+              </div>
+              
+              {formState.error && (
+                <div className="p-3 rounded-lg bg-red-500/20 border border-red-500/50 text-red-100 text-sm">
+                  {formState.error}
+                </div>
+              )}
+              
+              <button 
+                type="submit" 
+                disabled={formState.submitting}
+                className="w-full bg-accent hover:bg-teal-500 text-white font-bold py-4 rounded-lg transition-colors text-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {formState.submitting ? 'Sending...' : 'Send Message'}
+              </button>
+            </form>
+          )}
         </div>
       </section>
 
